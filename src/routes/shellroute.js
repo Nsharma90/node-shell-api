@@ -26,7 +26,7 @@ route.get('/shell/tasks',(req, res) => {
     let result = []
   
     let lines = input.split("\r\n");
-    let newobject = {}
+    
     //lines = lines.split("\"");
     lines = lines.filter((i) => {
       if (i.length && i !== ',' && i !== 'undefined') {
@@ -41,12 +41,14 @@ route.get('/shell/tasks',(req, res) => {
     let [header,...data] = lines;
    // console.log(">>>"+data)
     for (var i = 0; i < data.length; i++) {
+      let newobject = {}
       //if(i<5){console.log(">>>"+data[i])} 
-      for(var idx=0;idx <header.length;idx++){
+      for( idx=0;idx <header.length;idx++){
         if(typeof newobject[header[idx]] === 'undefined'){
           newobject[header[idx]]='';
         }
         let value = data[i][idx];
+       // console.log("i="+i+">>>"+value)
         //if(i<5){console.log("i="+i+">>>"+value)} 
         //if(idx===1){
           //console.log(">>>"+header[idx])
@@ -54,9 +56,11 @@ route.get('/shell/tasks',(req, res) => {
         newobject[header[idx]] = value//typeof value ==='undefined' ? '' : value;
         console.log(JSON.stringify(newobject))
       }   
-  
+     // console.log(">>>>>>>>>>>>>>>>>>>"+JSON.stringify(newobject))
       result.push(newobject);
+     // console.log(result)
     }
+    //console.log(result)
     //console.log(result)
   return JSON.stringify(result);
   }
